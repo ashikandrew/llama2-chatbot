@@ -2,12 +2,12 @@ import streamlit as st
 import replicate
 import os
 
-# App title
-st.set_page_config(page_title="🦙💬 Llama 2 Chatbot")
+# the following code represents the App title
+st.set_page_config(page_title="Ashi\'s AI 🤖")
 
-# Replicate Credentials
+# To get the Replicate Credentials
 with st.sidebar:
-    st.title('🦙💬 Ashi\'s AI 🤖')
+    st.title('Ashi\'s AI 🤖')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
@@ -29,11 +29,11 @@ with st.sidebar:
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
     max_length = st.sidebar.slider('max_length', min_value=32, max_value=256, value=120, step=8)
 
-# Store LLM generated responses
+# The following code is for Store LLM generated responses
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
-# Display or clear chat messages
+# To Display or clear chat messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
@@ -61,7 +61,7 @@ if prompt := st.chat_input(disabled=not replicate_api):
     with st.chat_message("user"):
         st.write(prompt)
 
-# Generate a new response if last message is not from assistant
+# To Generate a new response if last message is not from assistant
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
